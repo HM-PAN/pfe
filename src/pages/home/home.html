@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      الشركة الوطنية للسكك الحديدية التونسية
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <!-- <ion-list>
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-grid no-padding>
+  <ion-row nowrap>
+    <ion-col align-self-stretch>
+      <ion-img  src="../assets/logosncft.png"></ion-img>
+    </ion-col>
+  </ion-row>
+  <ion-row nowrap>
+    <ion-col align-self-stretch>
+      <ion-item>
+        <ion-label color="primary">اسم المستخدم </ion-label>
+        <ion-input type="text" [(ngModel)]="username" placeholder="اسم المستخدم"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row nowrap>
+    <ion-col align-self-stretch>
+    <ion-item>
+      <ion-label color="primary">كلمة السر</ion-label>
+      <ion-input type="password" [(ngModel)]="password" placeholder=" كلمة السر"></ion-input>
+    </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row nowrap>
+    <ion-col align-self-stretch>
+      <button ion-button block outline color="primary" (click)="login()"> الدخول</button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

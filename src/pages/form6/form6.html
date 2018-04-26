@@ -1,0 +1,64 @@
+<!--
+  Generated template for the Form6Page page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Stationement Train</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <form #form1="ngForm" (ngSubmit)="addPV($event)">
+      <ion-list>
+        <ion-item>
+          <ion-label>Matricule</ion-label>
+          <ion-input type="Number" [(ngModel)]="matcont" name="matcont" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>N° Train</ion-label>
+          <ion-input type="Number" [(ngModel)]="numtrain" name="numtrain" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Lieu</ion-label>
+          <ion-input type="text" [(ngModel)]="lieu" name="lieu" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Montant Du PV</ion-label>
+          <ion-input type="Number" [(ngModel)]="montant" name="montant" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Duree stas</ion-label>
+          <ion-input type="number" [(ngModel)]="durestas" name="durestas" required></ion-input>
+        </ion-item>
+<ion-item-divider color="light">Client</ion-item-divider>
+        <ion-item>
+          <ion-label>Cin</ion-label>
+          <ion-input type="Number" [(ngModel)]="cin" name="cin" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Nom </ion-label>
+          <ion-input type="text" [(ngModel)]="nompass" name="nompass" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Prenom </ion-label>
+          <ion-input type="text" [(ngModel)]="prenompass" name="prenompass" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Adresse</ion-label>
+          <ion-input type="text" [(ngModel)]="adresse" name="adresse" required></ion-input>
+        </ion-item>
+        <!--<img [src]="image" alt="" >
+       //<button ion-button clear (click)="takePicture()"  >Take Picture</button> -->
+      </ion-list>
+      <button ion-button block [disabled]="!form1.form.valid" type="submit">Envoyer</button>
+    </form>
+
+</ion-content>
