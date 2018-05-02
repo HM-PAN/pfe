@@ -15,12 +15,12 @@ export class HomePage {
   constructor(public navCtrl: NavController, private _auth: AuthProvider, private _synchroPv: FichePvProvider, private _synchroRec: ReclamationProvider) {
     // synchro pv 
     // synchro rec
-    this._synchroPv.Synchro();
-    this._synchroRec.Synchro();
+    //this._synchroPv.Synchro();
+    //this._synchroRec.Synchro();
   }
 
   openMenu() {
-    this.navCtrl.push(MenuPage);
+    this.navCtrl.setRoot(MenuPage);
   }
   login() {
     if ((this.username.length > 0) && (this.password.length > 0)) {

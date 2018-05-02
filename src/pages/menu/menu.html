@@ -4,27 +4,87 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
+<ion-menu [content]="mycontent" dir="rtl">
+  <ion-content padding>
+    <ion-list>
+      <ion-list-header>
+        معلومات شخصية
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          الاسم
+        </ion-label>
+        <div item-content>
+          {{user_info.nom}}
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          الاسم الأول
+        </ion-label>
+        <div item-content>
+          {{user_info.prenom}}
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          رقم شخصي
+        </ion-label>
+        <div item-content>
+          {{user_info.matricule}}
+        </div>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+            عنوان
+          </ion-label>
+          <div item-content>
+            {{user_info.adresse}}
+          </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+              رقم الهاتف
+            </ion-label>
+            <div item-content>
+              {{user_info.tel}}
+            </div>
+          </ion-item>
+      <button ion-item (click)="logout()">
+        <ion-icon name="exit" item-start></ion-icon>
+        الخروج
+            </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-header #mycontent>
+  <!-- <ion-navbar>
     <ion-title>الصفحة الرئيسية</ion-title>
-  </ion-navbar>
+    <button ion-button icon-only>
+      <ion-icon name="search"></ion-icon>
+    </button>
+  </ion-navbar> -->
+  <ion-toolbar>
+    <ion-title>الصفحة الرئيسية</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" menuToggle>
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding  >
+<ion-content padding>
   <img src="../assets/logosncft.png">
   <button ion-button style="background-color:#253c6b" (click)="openAjout()" block>إضافة خطية</button>
-  <button ion-button style="background-color:#253c6b"  (click)="openCons()" block>الخطايا المسجلة </button>
+  <button ion-button style="background-color:#253c6b" (click)="openCons()" block>الخطايا المسجلة </button>
   <button ion-button style="background-color:#253c6b" (click)="openRecl()" block>الاتصال بالادارة </button>
   <button ion-button style="background-color:#253c6b" (click)="openSos()" block>الاتصال بالطوارئ </button>
   <button ion-button clear item-end position="bottom" (click)="openinfo()">
-      <ion-icon name="information-circle"></ion-icon>
-      معلومات عن التطبيق
-    </button>
+    <ion-icon name="information-circle"></ion-icon>
+    معلومات عن التطبيق
+  </button>
 
 
 

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
@@ -102,6 +102,18 @@ export class AuthProvider {
         reject(err);
       })
     });
+  }
+  /**
+   * getUser
+   */
+  getUser(token:string) {
+    let url= "http://localhost:8000/api/user";
+    let body = new HttpParams()
+    .set('token',token);
+    return this.http.post(url,body,{headers:this.headers});
+  }
+  logOut(){
+    return this._storage.clear();
   }
 
 }

@@ -8,7 +8,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { MenuController } from 'ionic-angular';
 import { InformationsPage } from '../informations/informations';
 import { ReclamationProvider } from '../../providers/reclamation/reclamation';
-
+import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the MenuPage page.
@@ -23,9 +24,32 @@ import { ReclamationProvider } from '../../providers/reclamation/reclamation';
   templateUrl: 'menu.html',
 })
 export class MenuPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,private _auth:AuthProvider, public menuCtrl: MenuController , private _Synchro:ReclamationProvider) {
-    this._Synchro.Synchro();  
+  user_info= {
+    nom:'',
+    prenom:'',
+    tel:'',
+    adresse:'',
+    matricule:''
+  };
+  constructor(public navCtrl: NavController, public navParams: NavParams,private _auth:AuthProvider, public menuCtrl: MenuController , private _Synchro:ReclamationProvider, private _Storage:Storage) {
+    //this._Synchro.Synchro();
+    let token;
+    this._Storage.get('access_token').then((val)=>{
+      if(val != null && val.length > 0){
+        token = val;
+        this._auth.getUser(token).subscribe((data)=>{
+          if (data['stat']=== true) {
+           this.user_info = data['data']; 
+          } else {
+            console.log(data);
+          }
+        },err=>{
+          console.log(err);
+        });
+      }
+    }).catch((err)=>{
+      console.log(err);
+    });  
   }
   openAjout() {
     this.navCtrl.push(AjoutPage);
@@ -64,5 +88,15 @@ export class MenuPage {
    openinfo(){
      this.navCtrl.push(InformationsPage);
    }
+   logout(){
+     this._auth.logOut().then((val)=>{
+       this.navCtrl.setRoot(HomePage);
+     }).catch((err)=>{
+       console.log(err);
+       this.navCtrl.setRoot(HomePage);
+     });
+   }
 
-}
+
+
+  }

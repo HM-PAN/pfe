@@ -54,7 +54,7 @@ export class FichePvProvider {
     return this.http.post(insert_url, body, { headers: this.headers })
   }
   Synchro() {
-    this.db.executeSql('SELECT * FROM FichePV', {})
+    this.db.executeSql('SELECT * FROM `FichePV`', {})
       .then((res) => {
         for (var i = 0; i < res.rows.length; i++) {
           //this.expenses.push({rowid:res.rows.item(i).rowid,date:res.rows.item(i).date,type:res.rows.item(i).type,description:res.rows.item(i).description,amount:res.rows.item(i).amount})
@@ -84,7 +84,7 @@ export class FichePvProvider {
               this._sqlLite.create(this.options)
               .then((db: SQLiteObject) => {
                 this.db = db;
-                var sql = 'DELETE FROM `fiche-pv` WHERE (rowid ='+res.rows.item(i).rowid+')' ;
+                var sql = 'DELETE FROM `FichePV` WHERE (rowid ='+res.rows.item(i).rowid+')' ;
                 this.db.executeSql(sql, {})
                   .then(() => console.log('Executed Sql' + sql))
                   .catch(e => console.log("Error:" + JSON.stringify(e)));
