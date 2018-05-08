@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Abonnement Périmé</ion-title>
+    <ion-title> اشتراك منتهي الصلاحية </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,43 +17,43 @@
     <form #form1="ngForm" (ngSubmit)="addPV($event)">
       <ion-list>
         <ion-item>
-          <ion-label>N° Train</ion-label>
+          <ion-label> رقم القطار </ion-label>
           <ion-input type="Number" [(ngModel)]="numtrain" name="numtrain" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Lieu</ion-label>
+          <ion-label> المكان</ion-label>
           <ion-input type="text" [(ngModel)]="lieu" name="lieu" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Montant Du PV</ion-label>
+          <ion-label> مبلغ الغرامة</ion-label>
           <ion-input type="Number" [(ngModel)]="montant" name="montant" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Date fin validité d'abon</ion-label>
+          <ion-label> تاريخ انتهاء صلاحية الاشتراك          </ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="datefinabo" name="datefinabo" required></ion-datetime>
         </ion-item>
-  <ion-item-divider color="light">Client</ion-item-divider>
+  <ion-item-divider color="light"> راكب </ion-item-divider>
         <ion-item>
-          <ion-label>Cin</ion-label>
+          <ion-label> ر.ب.ت </ion-label>
           <ion-input type="Number" [(ngModel)]="cin" name="cin" required></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Nom </ion-label>
+          <ion-label> الاسم </ion-label>
           <ion-input type="text" [(ngModel)]="nompass" name="nompass" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Prenom </ion-label>
+          <ion-label> الاسم الأول </ion-label>
           <ion-input type="text" [(ngModel)]="prenompass" name="prenompass" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Adresse</ion-label>
+          <ion-label> عنوان </ion-label>
           <ion-input type="text" [(ngModel)]="adresse" name="adresse" required></ion-input>
         </ion-item>
         <!--<img [src]="image" alt="" >
        //<button ion-button clear (click)="takePicture()"  >Take Picture</button> -->
       </ion-list>
-      <button ion-button block [disabled]="!form1.form.valid" type="submit">Envoyer</button>
+      <button ion-button block [disabled]="!form1.form.valid" type="submit"> إرسال </button>
     </form>
 
 

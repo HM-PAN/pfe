@@ -10,6 +10,7 @@ import { InformationsPage } from '../informations/informations';
 import { ReclamationProvider } from '../../providers/reclamation/reclamation';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
+import { FichePvProvider } from '../../providers/fiche-pv/fiche-pv';
 
 /**
  * Generated class for the MenuPage page.
@@ -31,15 +32,20 @@ export class MenuPage {
     adresse:'',
     matricule:''
   };
-  constructor(public navCtrl: NavController, public navParams: NavParams,private _auth:AuthProvider, public menuCtrl: MenuController , private _Synchro:ReclamationProvider, private _Storage:Storage) {
-    //this._Synchro.Synchro();
+  constructor(public navCtrl: NavController, public navParams: NavParams,private _auth:AuthProvider, public menuCtrl: MenuController , private _synchroRec:ReclamationProvider, private _Storage:Storage , private _synchroPv:FichePvProvider) {
+    
+    this._synchroRec.Synchro();
     let token;
     this._Storage.get('access_token').then((val)=>{
       if(val != null && val.length > 0){
         token = val;
         this._auth.getUser(token).subscribe((data)=>{
           if (data['stat']=== true) {
-           this.user_info = data['data']; 
+           this.user_info = data['data'];
+           // synchro pv 
+          // synchro rec
+    this._synchroPv.Synchro();
+    this._synchroRec.connectTorecl(); 
           } else {
             console.log(data);
           }

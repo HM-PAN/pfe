@@ -65,7 +65,7 @@ export class Form4Page {
     var sql = "INSERT INTO `FichePV`(datepv,cin,nompass,prenompass,adresse,matcont,numtrain,montant,lieu,type,datefinabo) VALUES('"+this.datepv+"','"+this.cin+"','"+this.nompass+"','"+this.prenompass+ "','"+this.adresse+"','"+this.matcont+"','"+this.numtrain+ "','"+this.montant+"','"+this.lieu + "','"+4+ "','"+this.datefinabo+"')";
     this.db.executeSql(sql, {})
     .then(() => {
-      this.dialogs.alert('form inserted')
+      this.dialogs.alert('تم تسجيل الخطية')
         .then(() => {
           console.log('Dialog dismissed');
           this.navCtrl.push(MenuPage);

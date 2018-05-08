@@ -16,7 +16,7 @@ export class ReclamationProvider {
     location: 'default',
     createFromLocation: 1
   }
-  url = "http://localhost/api/reclamation/?token=";
+  url = "http://192.168.1.3:8000/api/reclamation/?token=";
   headers = new HttpHeaders;
   private db: SQLiteObject;
   private token: string;
@@ -77,7 +77,7 @@ export class ReclamationProvider {
         console.log(err);
       });
   }
-  private connectTorecl(): void {
+  connectTorecl(): void {
     this._sqlLite.create(this.options)
       .then((db: SQLiteObject) => {
         this.db = db;
@@ -85,6 +85,7 @@ export class ReclamationProvider {
         this.db.executeSql(sql, {})
           .then(() => console.log('Executed Sql' + sql))
           .catch(e => console.log("Error:" + JSON.stringify(e)));
+          this.Synchro();
       })
       .catch(e => console.log(JSON.stringify(e)));
   }

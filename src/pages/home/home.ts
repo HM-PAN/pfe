@@ -4,6 +4,9 @@ import { MenuPage } from '../menu/menu';
 import { AuthProvider } from '../../providers/auth/auth';
 import { FichePvProvider } from '../../providers/fiche-pv/fiche-pv';
 import { ReclamationProvider } from '../../providers/reclamation/reclamation';
+import { LoadingController } from 'ionic-angular';
+
+
 
 @Component({
   selector: 'page-home',
@@ -12,20 +15,20 @@ import { ReclamationProvider } from '../../providers/reclamation/reclamation';
 export class HomePage {
   username = '';
   password = '';
-  constructor(public navCtrl: NavController, private _auth: AuthProvider, private _synchroPv: FichePvProvider, private _synchroRec: ReclamationProvider) {
-    // synchro pv 
-    // synchro rec
-    //this._synchroPv.Synchro();
-    //this._synchroRec.Synchro();
+  private loader;
+  constructor(public navCtrl: NavController, private _auth: AuthProvider, private _synchroPv: FichePvProvider, private _synchroRec: ReclamationProvider, private loadingCtrl:LoadingController ) {
+    
   }
 
   openMenu() {
     this.navCtrl.setRoot(MenuPage);
   }
   login() {
+    this.presentLoading();
     if ((this.username.length > 0) && (this.password.length > 0)) {
       this._auth.loginUser(this.username, this.password)
         .subscribe(data => {
+          this.loader.dismiss()
           console.log(data);
           if (data['access_token'] != null) {
             this._auth.setSession(data).then(()=>{
@@ -47,6 +50,12 @@ export class HomePage {
       console.log("missing arg");
 
     }
+  }
+  presentLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: "...الرجاء الانتظار",
+    });
+    this.loader.present();
   }
 
 }

@@ -26,7 +26,7 @@ export class SosPage {
     });
   }
     call2(){
-      this.callsvc.callNumber('94410833',true).then(()=>{
+      this.callsvc.callNumber('198',true).then(()=>{
         console.log('worked');
       }).catch((err)=>{
         alert(JSON.stringify(err))
