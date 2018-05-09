@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { Dialogs } from '@ionic-native/dialogs';
 
 
 /*
@@ -19,11 +20,11 @@ export class FichePvProvider {
   }
   private db: SQLiteObject;
   private token: string;
-  private url = "http://192.168.1.3:8000/api/fiche-pv/?token=";
+  private url = "http://192.168.1.5:8000/api/FichePV?token=";
   private headers = new HttpHeaders;
-  constructor(public http: HttpClient, private _Storage: Storage, private _sqlLite: SQLite) {
+  constructor(public http: HttpClient, private _Storage: Storage, private _sqlLite: SQLite, private _dialog: Dialogs) {
     console.log('Hello FichePvProvider Provider');
-    this.connectToDb();
+    //this.connectToDb();
     this.headers.set("Content-Type", "application/x-www-form-urlencoded");
     // read token 
     this._Storage.get('access_token').then((val) => {
@@ -48,7 +49,7 @@ export class FichePvProvider {
       type_abonn: FichePV['type_abonn'],
       dure_stationnement: FichePV['dure_stationnement'],
       date_fin_abon: FichePV['date_fin_abon'],
-      type_pv: FichePV['type_pv']
+      type: FichePV['type_pv']
     }
     insert_url = insert_url + this.token;
     return this.http.post(insert_url, body, { headers: this.headers })
@@ -58,6 +59,7 @@ export class FichePvProvider {
       .then((res) => {
         for (var i = 0; i < res.rows.length; i++) {
           //this.expenses.push({rowid:res.rows.item(i).rowid,date:res.rows.item(i).date,type:res.rows.item(i).type,description:res.rows.item(i).description,amount:res.rows.item(i).amount})
+          let iddelete = res.rows.item(i).ID;
           let FichePV = {
             cin_pass: res.rows.item(i).cin,
             nom_pass: res.rows.item(i).nompass,
@@ -75,25 +77,31 @@ export class FichePvProvider {
             type_pv: res.rows.item(i).Type
             //matcont ?
           }
+          let dbinst = this.db;
           this.insertfichepv(FichePV).subscribe((val) => {
-            if (val['stat'] == true) {
+            if (val["stat"] === true) {
               console.log("synchro done");
-              // delete reclamation of the current res.rows.item(i).rowid;
-              
-              
-              this._sqlLite.create(this.options)
-              .then((db: SQLiteObject) => {
-                this.db = db;
-                var sql = 'DELETE FROM `FichePV` WHERE (rowid ='+res.rows.item(i).rowid+')' ;
-                this.db.executeSql(sql, {})
-                  .then(() => console.log('Executed Sql' + sql))
-                  .catch(e => console.log("Error:" + JSON.stringify(e)));
-              })
-              .catch(e => console.log(JSON.stringify(e)));
-              
+              let stringoooo = "delet this id "+iddelete;
+              // this._dialog.alert(stringoooo);
+              var sql = 'DELETE FROM `FichePV` WHERE ID = "' + iddelete + '"';
+              dbinst.executeSql(sql, {})
+                .then(() => {
+                  console.log('Executed Sql' + sql);
+                  // this._dialog.alert("id is -> "+iddelete+" ya 5raaaaa ")
+                })
+                .catch(e => {
+                  console.log("Error:" + JSON.stringify(e));
+                  // this._dialog.alert(JSON.stringify(e),'reportting')
+                });
             }
             else {
               console.log("faild synchro");
+              this._dialog.alert(val['msg'])
+                .then(t => {
+                  console.log(t);
+                }).catch(e => {
+                  console.log(e);
+                })
             }
           }, err => {
             console.log(err);
@@ -105,7 +113,7 @@ export class FichePvProvider {
       });
   }
 
-  private connectToDb(): void {
+  public SynchroPv(): void {
     this._sqlLite.create(this.options)
       .then((db: SQLiteObject) => {
         this.db = db;
@@ -113,6 +121,7 @@ export class FichePvProvider {
         this.db.executeSql(sql, {})
           .then(() => console.log('Executed Sql' + sql))
           .catch(e => console.log("Error:" + JSON.stringify(e)));
+        this.Synchro();
       })
       .catch(e => console.log(JSON.stringify(e)));
   }

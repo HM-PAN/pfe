@@ -34,7 +34,7 @@ daterecl:any;
     this.sqlite.create(this.options)
       .then((db: SQLiteObject) => {
         this.db = db;
-        var sql = 'create table IF NOT EXISTS `recl`(reclamation TEXT NOT NULL,lieurecl TEXT NOT NULL,daterecl TEXT NOT NULL)';
+        var sql = 'create table IF NOT EXISTS `recl`(ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,reclamation TEXT NOT NULL,lieurecl TEXT NOT NULL,daterecl TEXT NOT NULL)';
         this.db.executeSql(sql, {})
           .then(() => this.theConsole += "\n" + 'Executed Sql' + sql)
           .catch(e => this.theConsole += "Error:" + JSON.stringify(e));

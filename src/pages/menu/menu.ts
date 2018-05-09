@@ -25,37 +25,35 @@ import { FichePvProvider } from '../../providers/fiche-pv/fiche-pv';
   templateUrl: 'menu.html',
 })
 export class MenuPage {
-  user_info= {
-    nom:'',
-    prenom:'',
-    tel:'',
-    adresse:'',
-    matricule:''
+  user_info = {
+    nom: '',
+    prenom: '',
+    tel: '',
+    adresse: '',
+    matricule: ''
   };
-  constructor(public navCtrl: NavController, public navParams: NavParams,private _auth:AuthProvider, public menuCtrl: MenuController , private _synchroRec:ReclamationProvider, private _Storage:Storage , private _synchroPv:FichePvProvider) {
-    
-    this._synchroRec.Synchro();
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthProvider, public menuCtrl: MenuController, private _synchroRec: ReclamationProvider, private _Storage: Storage, private _synchroPv: FichePvProvider) {
+
+    //this._synchroRec.Synchro();
     let token;
-    this._Storage.get('access_token').then((val)=>{
-      if(val != null && val.length > 0){
+    this._Storage.get('access_token').then((val) => {
+      if (val != null && val.length > 0) {
         token = val;
-        this._auth.getUser(token).subscribe((data)=>{
-          if (data['stat']=== true) {
-           this.user_info = data['data'];
-           // synchro pv 
-          // synchro rec
-    this._synchroPv.Synchro();
-    this._synchroRec.connectTorecl(); 
+        this._auth.getUser(token).subscribe((data) => {
+          if (data['stat'] === true) {
+            this.user_info = data['data'];
+            this._synchroPv.SynchroPv();
+            this._synchroRec.SynchroReclamation();
           } else {
             console.log(data);
           }
-        },err=>{
+        }, err => {
           console.log(err);
         });
       }
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err);
-    });  
+    });
   }
   openAjout() {
     this.navCtrl.push(AjoutPage);
@@ -63,46 +61,46 @@ export class MenuPage {
   openCons() {
     this.navCtrl.push(ConsPage);
   }
-  openRecl(){
+  openRecl() {
     this.navCtrl.push(ReclPage);
   }
-  openSos(){
+  openSos() {
     this.navCtrl.push(SosPage);
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');
   }
-  ionViewCanEnter(){
+  ionViewCanEnter() {
     // here we can either return true or false
     // depending on if we want to leave this view
-    this._auth.isAuth().then((val)=>{
-      if(val.length > 0){
+    this._auth.isAuth().then((val) => {
+      if (val.length > 0) {
         return true;
       }
       else {
         return false;
       }
     })
-    .catch((err)=>{
-      console.log(err);
-      return false;
-    })
-   }
-   openMenu() {
-   this.menuCtrl.open();
-   }
-   openinfo(){
-     this.navCtrl.push(InformationsPage);
-   }
-   logout(){
-     this._auth.logOut().then((val)=>{
-       this.navCtrl.setRoot(HomePage);
-     }).catch((err)=>{
-       console.log(err);
-       this.navCtrl.setRoot(HomePage);
-     });
-   }
-
-
-
+      .catch((err) => {
+        console.log(err);
+        return false;
+      })
   }
+  openMenu() {
+    this.menuCtrl.open();
+  }
+  openinfo() {
+    this.navCtrl.push(InformationsPage);
+  }
+  logout() {
+    this._auth.logOut().then((val) => {
+      this.navCtrl.setRoot(HomePage);
+    }).catch((err) => {
+      console.log(err);
+      this.navCtrl.setRoot(HomePage);
+    });
+  }
+
+
+
+}
