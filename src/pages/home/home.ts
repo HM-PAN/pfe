@@ -6,6 +6,8 @@ import { FichePvProvider } from '../../providers/fiche-pv/fiche-pv';
 import { ReclamationProvider } from '../../providers/reclamation/reclamation';
 import { LoadingController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
+import { Network } from '@ionic-native/network';
+
 
 
 

@@ -65,7 +65,7 @@ export class ConsPage {
           }
         }
         else{
-          this.dialogs.alert(" no pv saved !!")
+          this.dialogs.alert(" لا يوجد خطايا !!")
             .then(() => console.log('Dialog dismissed'))
             .catch(e => console.log('Error displaying dialog', e))
         }

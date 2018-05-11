@@ -27,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { InformationsPage } from '../pages/informations/informations';
 import { ReclamationProvider } from '../providers/reclamation/reclamation';
 import { FichePvProvider } from '../providers/fiche-pv/fiche-pv';
+import { Network } from '@ionic-native/network';
+import { Toast } from '@ionic-native/toast';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { FichePvProvider } from '../providers/fiche-pv/fiche-pv';
     Dialogs,
     AuthProvider,
     ReclamationProvider,
-    FichePvProvider
+    FichePvProvider,
+    Network,
+    Toast
   ]
 })
 export class AppModule { }
