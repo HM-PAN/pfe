@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Dialogs } from '@ionic-native/dialogs';
+import { MenuPage } from '../menu/menu';
 
 /**
  * Generated class for the ReclPage page.
@@ -57,6 +58,7 @@ daterecl:any;
         this.dialogs.alert('reclamtion faite !')
           .then(() => console.log('Dialog dismissed'))
           .catch(e => console.log('Error displaying dialog', e))
+          this.navCtrl.setRoot(MenuPage);
       })
       .catch(err => {
         this.dialogs.alert(JSON.stringify(err))

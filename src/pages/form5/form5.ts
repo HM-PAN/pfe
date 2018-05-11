@@ -77,7 +77,8 @@ export class Form5Page {
       this.dialogs.alert('تم تسجيل الخطية')
         .then(() => {
           console.log('Dialog dismissed');
-          this.navCtrl.push(MenuPage);
+          // this.navCtrl.push(MenuPage);
+          this.navCtrl.setRoot(MenuPage);
         })
         .catch(e => console.log('Error displaying dialog', e))
     })
