@@ -21,7 +21,7 @@ export class FichePvProvider {
   }
   private db: SQLiteObject;
   private token: string;
-  private url = "http://192.168.1.3:8000/api/FichePV?token=";
+  private url = "http://192.168.1.4:8000/api/FichePV?token=";
   private headers = new HttpHeaders;
   constructor(private toast:Toast,public http: HttpClient, private _Storage: Storage, private _sqlLite: SQLite, private _dialog: Dialogs) {
     console.log('Hello FichePvProvider Provider');

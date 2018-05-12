@@ -18,7 +18,7 @@ export class ReclamationProvider {
     location: 'default',
     createFromLocation: 1
   }
-  url = "http://192.168.1.3:8000/api/reclamation?token=";
+  url = "http://192.168.1.4:8000/api/reclamation?token=";
   headers = new HttpHeaders;
   private db: SQLiteObject;
   private token: string;

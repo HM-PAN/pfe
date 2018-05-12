@@ -35,7 +35,7 @@ export class Form5Page {
   //image:string;
   lieu: string;
   datepv: any;
-  type:number;
+  Type:number;
   typeabo:string;
   /*today;
   image: string;
@@ -63,6 +63,8 @@ export class Form5Page {
   }
   addPV(ev): void {
     // add form control
+    if(this.numtrain &&  this.cin.toString.length == 8 && this.montant && this.nompass.length<20 && this.prenompass.length<20 && this.adresse.length<20 && this.lieu.length<20 && this.Type && this.typeabo.length<20 )
+{
     var date = new Date();
     var day = date.getDate();
     var monthIndex = date.getMonth();
@@ -71,7 +73,7 @@ export class Form5Page {
     var hours = date.getHours();
   //  var seconds = date.getSeconds();
     this.datepv = day + "-" + (monthIndex + 1) + "-" + year + " " + hours + ":" + minutes;
-    var sql = "INSERT INTO `FichePV`(datepv,cin,nompass,prenompass,adresse,matcont,numtrain,montant,lieu,type,typeabo) VALUES('"+this.datepv+"','"+this.cin+"','"+this.nompass+"','"+this.prenompass+ "','"+this.adresse+"','"+this.matcont+"','"+this.numtrain+ "','"+this.montant+"','"+this.lieu+ "','"+5+ "','"+this.typeabo+ "')";
+    var sql = "INSERT INTO `FichePV`(datepv,cin,nompass,prenompass,adresse,matcont,numtrain,montant,lieu,Type,typeabo) VALUES('"+this.datepv+"','"+this.cin+"','"+this.nompass+"','"+this.prenompass+ "','"+this.adresse+"','"+this.matcont+"','"+this.numtrain+ "','"+this.montant+"','"+this.lieu+ "','"+5+ "','"+this.typeabo+ "')";
     this.db.executeSql(sql, {})
     .then(() => {
       this.dialogs.alert('تم تسجيل الخطية')
@@ -87,7 +89,11 @@ export class Form5Page {
           .then(() => console.log('Dialog dismissed'))
           .catch(e => console.log('Error displaying dialog', e))
       });
+  }else
+  {
+    this.dialogs.alert(" الرجاء التثبت من المعطيات ")
   }
+}
 
 
   getConsoleMessages() {

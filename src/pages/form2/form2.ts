@@ -63,6 +63,8 @@ export class Form2Page {
   }
   addPV(ev): void {
     // add form control
+    if(this.numtrain &&  this.cin.toString.length == 8 && this.montant && this.nompass.length<20 && this.prenompass.length<20 && this.adresse.length<20 && this.lieu.length<20 && this.Type && this.classe )
+    {
     var date = new Date();
     var day = date.getDate();
     var monthIndex = date.getMonth();
@@ -87,7 +89,11 @@ export class Form2Page {
           .then(() => console.log('Dialog dismissed'))
           .catch(e => console.log('Error displaying dialog', e))
       });
+  }else
+  {
+    this.dialogs.alert("الرجاء التثبت من المعطيات")
   }
+}
 /*  async takePicture(): Promise<any>{
     try {
     this.image = await this.camera.getPicture(this.options);

@@ -36,7 +36,7 @@ export class Form3Page {
   //image:string;
   lieu: string;
   datepv: any;
-  type:number;
+  Type:number;
   destreele:string;
   /*today;
   image: string;
@@ -63,6 +63,8 @@ export class Form3Page {
       .catch(e => this.theConsole += JSON.stringify(e));
   }
   addPV(ev): void {
+    if(this.numtrain &&  this.cin.toString.length == 8 && this.montant && this.nompass.length<20 && this.prenompass.length<20 && this.adresse.length<20 && this.lieu.length<20 && this.Type && this.destreele)
+    {
     // add form control
     var date = new Date();
     var day = date.getDate();
@@ -72,7 +74,7 @@ export class Form3Page {
     var hours = date.getHours();
   //  var seconds = date.getSeconds();
     this.datepv = day + "-" + (monthIndex + 1) + "-" + year + " " + hours + ":" + minutes;
-    var sql = "INSERT INTO `FichePV`(datepv,cin,nompass,prenompass,adresse,matcont,numtrain,montant,lieu,type,destreele) VALUES('"+this.datepv+"','"+this.cin+"','"+this.nompass+"','"+this.prenompass+ "','"+this.adresse+"','"+this.matcont+"','"+this.numtrain+ "','"+this.montant+"','"+this.lieu + "','"+3+ "','"+this.destreele + "')";
+    var sql = "INSERT INTO `FichePV`(datepv,cin,nompass,prenompass,adresse,matcont,numtrain,montant,lieu,Type,destreele) VALUES('"+this.datepv+"','"+this.cin+"','"+this.nompass+"','"+this.prenompass+ "','"+this.adresse+"','"+this.matcont+"','"+this.numtrain+ "','"+this.montant+"','"+this.lieu + "','"+3+ "','"+this.destreele + "')";
     this.db.executeSql(sql, {})
     .then(() => {
       this.dialogs.alert('تم تسجيل الخطية')
@@ -88,7 +90,12 @@ export class Form3Page {
           .then(() => console.log('Dialog dismissed'))
           .catch(e => console.log('Error displaying dialog', e))
       });
+  }else
+  {
+    this.dialogs.alert("الرجاء التثبت من المعطيات")
+
   }
+}
   /*async takePicture(): Promise<any>{
     try {
     this.image = await this.camera.getPicture(this.options);

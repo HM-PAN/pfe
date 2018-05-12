@@ -15,7 +15,7 @@ export class AuthProvider {
   ipconfig 
   changer localhost par l'ip
   */
-  urlapi = "http://192.168.1.3:8000/oauth/v2/token";
+  urlapi = "http://192.168.1.4:8000/oauth/v2/token";
   headers = new HttpHeaders;
   constructor(public http: HttpClient, private _storage: Storage) {
     console.log('Hello AuthProvider Provider');
@@ -81,7 +81,7 @@ export class AuthProvider {
     return this._storage.get('access_token')
   }
   isController(){
-    let urlcheck = "https://192.168.1.3:8000/api/user/?token=";
+    let urlcheck = "https://192.168.1.4:8000/api/user/?token=";
     return new Promise(function(resolve,reject){
       this._storage.get("access_token").then((val)=>{
         let token = val;
@@ -107,7 +107,7 @@ export class AuthProvider {
    * getUser
    */
   getUser(token:string) {
-    let url= "http://192.168.1.3:8000/api/user";
+    let url= "http://192.168.1.4:8000/api/user";
     let body = new HttpParams()
     .set('token',token);
     return this.http.post(url,body,{headers:this.headers});

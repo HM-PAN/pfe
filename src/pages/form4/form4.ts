@@ -35,7 +35,7 @@ export class Form4Page {
   //image:string;
   lieu: string;
   datepv: any;
-  type:number;
+  Type:number;
   datefinabo:string;
   constructor(/*private camera: Camera,*/ public navCtrl: NavController, public navParams: NavParams , private sqlite: SQLite, private dialogs: Dialogs) {
   this.connectToDb();
@@ -54,6 +54,8 @@ export class Form4Page {
   }
   addPV(ev): void {
     // add form control
+    if(this.numtrain &&  this.cin.toString.length == 8 && this.montant && this.nompass.length<20 && this.prenompass.length<20 && this.adresse.length<20 && this.lieu.length<20 && this.Type )
+{
     var date = new Date();
     var day = date.getDate();
     var monthIndex = date.getMonth();
@@ -62,7 +64,7 @@ export class Form4Page {
     var hours = date.getHours();
     // date of adding pv
     this.datepv = day + "-" + (monthIndex + 1) + "-" + year + " " + hours + ":" + minutes;
-    var sql = "INSERT INTO `FichePV`(datepv,cin,nompass,prenompass,adresse,matcont,numtrain,montant,lieu,type,datefinabo) VALUES('"+this.datepv+"','"+this.cin+"','"+this.nompass+"','"+this.prenompass+ "','"+this.adresse+"','"+this.matcont+"','"+this.numtrain+ "','"+this.montant+"','"+this.lieu + "','"+4+ "','"+this.datefinabo+"')";
+    var sql = "INSERT INTO `FichePV`(datepv,cin,nompass,prenompass,adresse,matcont,numtrain,montant,lieu,Type,datefinabo) VALUES('"+this.datepv+"','"+this.cin+"','"+this.nompass+"','"+this.prenompass+ "','"+this.adresse+"','"+this.matcont+"','"+this.numtrain+ "','"+this.montant+"','"+this.lieu + "','"+4+ "','"+this.datefinabo+"')";
     this.db.executeSql(sql, {})
     .then(() => {
       this.dialogs.alert('تم تسجيل الخطية')
@@ -78,7 +80,12 @@ export class Form4Page {
           .then(() => console.log('Dialog dismissed'))
           .catch(e => console.log('Error displaying dialog', e))
       });
+  }else
+  {
+    this.dialogs.alert(" الرجاء التثبت من المعطيات ")
+
   }
+}
   getConsoleMessages() {
     return this.theConsole;
   }
