@@ -39,8 +39,7 @@ export class MenuPage {
     adresse: '',
     matricule: ''
   };
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthProvider, public menuCtrl: MenuController, private _synchroRec: ReclamationProvider, private _Storage: Storage, private _synchroPv: FichePvProvider,private network: Network,private toast: Toast, private _dialog:Dialogs) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthProvider, public menuCtrl: MenuController, private _synchroRec: ReclamationProvider, private _Storage: Storage, private _synchroPv: FichePvProvider, private network: Network, private toast: Toast, private _dialog: Dialogs) {
     //this._synchroRec.Synchro();
     let token;
     this._Storage.get('access_token').then((val) => {
@@ -49,27 +48,28 @@ export class MenuPage {
         this._auth.getUser(token).subscribe((data) => {
           if (data['stat'] === true) {
             this.user_info = data['data'];
-            let connectSubscription = this.network.onConnect().subscribe(() => {
-              console.log('network connected!');
-              this._dialog.alert("conection");
-              // We just got a connection but we need to wait briefly
-               // before we determine the connection type. Might need to wait.
-               this.toast.show(`الارسال`, '5000', 'bottom').subscribe(
-                toast => {
-                  console.log(toast);
-                }
-              );
-               this._synchroPv.SynchroPv();
-               this._synchroRec.SynchroReclamation();
-              
-            },error=>{
-              this.toast.show(`pas de cnx`, '5000', 'bottom').subscribe(
-                toast => {
-                  console.log(toast);
-                }
-              );
-            });
-            
+            // let connectSubscription = this.network.onConnect().subscribe(() => {
+            //   setTimeout(() => {
+            //     this.toast.show(`الارسال`, '5000', 'bottom').subscribe(
+            //       toast => {
+            //         console.log(toast);
+            //       }
+            //     );
+            //     console.log('network connected!');
+            //     this._dialog.alert("conection");
+                // We just got a connection but we need to wait briefly
+                // before we determine the connection type. Might need to wait.
+                this._synchroPv.SynchroPv();
+                this._synchroRec.SynchroReclamation();
+            //   }, 3000);
+            // }, error => {
+            //   this.toast.show(`pas de cnx`, '5000', 'bottom').subscribe(
+            //     toast => {
+            //       console.log(toast);
+            //     }
+            //   );
+            // });
+
           } else {
             console.log(data);
           }
@@ -125,7 +125,7 @@ export class MenuPage {
       console.log(err);
       this.navCtrl.setRoot(HomePage);
     });
-  }
+}
 
 
 

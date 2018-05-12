@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Dialogs } from '@ionic-native/dialogs';
+import { Toast } from '@ionic-native/toast';
 
 /*
   Generated class for the ReclamationProvider provider.
@@ -21,7 +22,7 @@ export class ReclamationProvider {
   headers = new HttpHeaders;
   private db: SQLiteObject;
   private token: string;
-  constructor(public http: HttpClient, private _Storage: Storage, private _sqlLite: SQLite, private _dialog: Dialogs) {
+  constructor(private toast:Toast,public http: HttpClient, private _Storage: Storage, private _sqlLite: SQLite, private _dialog: Dialogs) {
     console.log('Hello ReclamationProvider Provider');
     //this.connectTorecl();
     this.headers.set("Content-Type", "application/x-www-form-urlencoded");
@@ -56,7 +57,12 @@ export class ReclamationProvider {
           }
           let dbisnt = this.db;
           this.insertReclamation(reclamation).subscribe((val) => {
-            if (val["stat"] === true) {  
+            if (val["stat"] === true) {
+              this.toast.show(`الارسال`, '5000', 'bottom').subscribe(
+                toast => {
+                  console.log(toast);
+                }
+              );  
               // delete reclamation of the current res.rows.item(i).rowid;
               var sql = 'DELETE FROM `recl` WHERE ID = "' + iddelete + '"';
               dbisnt.executeSql(sql, {})

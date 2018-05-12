@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Dialogs } from '@ionic-native/dialogs';
+import { Toast } from '@ionic-native/toast';
 
 
 /*
@@ -22,7 +23,7 @@ export class FichePvProvider {
   private token: string;
   private url = "http://192.168.1.3:8000/api/FichePV?token=";
   private headers = new HttpHeaders;
-  constructor(public http: HttpClient, private _Storage: Storage, private _sqlLite: SQLite, private _dialog: Dialogs) {
+  constructor(private toast:Toast,public http: HttpClient, private _Storage: Storage, private _sqlLite: SQLite, private _dialog: Dialogs) {
     console.log('Hello FichePvProvider Provider');
     //this.connectToDb();
     this.headers.set("Content-Type", "application/x-www-form-urlencoded");
@@ -79,6 +80,11 @@ export class FichePvProvider {
           }
           let dbinst = this.db;
           this.insertfichepv(FichePV).subscribe((val) => {
+            this.toast.show(`الارسال`, '5000', 'bottom').subscribe(
+              toast => {
+                console.log(toast);
+              }
+            );
             if (val["stat"] === true) {
               console.log("synchro done");
               let stringoooo = "delet this id "+iddelete;
